@@ -1,31 +1,17 @@
-import type { MetaFunction } from "@remix-run/node";
-import {
-  Links,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@remix-run/react";
+// hot reload the app
+import { LiveReload } from '@remix-run/react';
 
-export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "New Remix App",
-  viewport: "width=device-width,initial-scale=1",
-});
-
+// root of the app
 export default function App() {
   return (
-    <html lang="en">
+    <html>
       <head>
-        <Meta />
-        <Links />
+        <meta charSet='utf-8' />
+        <title>Remix Jokes App</title>
       </head>
       <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <h1>Hello World @!@!</h1>
+        {process.env.NODE_ENV === 'development' ? <LiveReload /> : null}
       </body>
     </html>
   );

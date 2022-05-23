@@ -1,5 +1,6 @@
-// hot reload the app
-import { LiveReload } from '@remix-run/react';
+// LiveReload:hot reload the app
+// Outlet for route
+import { LiveReload, Outlet } from '@remix-run/react';
 
 // root of the app
 export default function App() {
@@ -10,7 +11,7 @@ export default function App() {
         <title>Remix Jokes App</title>
       </head>
       <body>
-        <h1>Hello World @!@!</h1>
+        <Outlet />
         {process.env.NODE_ENV === 'development' ? <LiveReload /> : null}
       </body>
     </html>

@@ -3,7 +3,7 @@ import { json } from '@remix-run/node';
 import { useActionData, Link, useSearchParams } from '@remix-run/react';
 
 import { db } from '~/utils/db.server';
-
+import { login, createUserSession } from '~/utils/session.server';
 import stylesUrl from '../styles/login.css';
 
 export const links: LinksFunction = () => {
@@ -82,10 +82,15 @@ export const action: ActionFunction = async ({ request }) => {
       // login to get the user
       // if there's no user, return the fields and a formError
       // if there is a user, create their session and redirect to /jokes
-      return badRequest({
-        fields,
-        formError: 'Not implemented',
-      });
+      const user = await login({ username, password });
+      console.log({ user });
+      if (!user) {
+        return badRequest({
+          formError: `Username/Password combination is incorrect`,
+          fields,
+        });
+      }
+      return createUserSession(user.id, redirectTo);
     }
     case 'register': {
       const userExists = await db.user.findFirst({
